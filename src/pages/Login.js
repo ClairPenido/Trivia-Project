@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import fetchToken from '../services/token';
+import Modal from '../components/Modal';
 
 class Login extends Component {
   state = {
@@ -57,11 +58,22 @@ class Login extends Component {
           <button
             type="button"
             data-testid="btn-play"
+            className=""
             disabled={ this.buttonCheck() }
             onClick={ this.handleClick }
           >
             Play
           </button>
+          <button
+            type="button"
+            className=""
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+            data-testid="btn-settings"
+          >
+            Configurações
+          </button>
+          <Modal />
         </form>
       </div>
     );
