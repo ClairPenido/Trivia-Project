@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import fetchToken from '../services/token';
-import Modal from '../components/Modal';
 
 class Login extends Component {
   state = {
@@ -29,7 +28,12 @@ class Login extends Component {
     const tokenResponse = await fetchToken();
     const { token } = tokenResponse;
     localStorage.setItem('token', token);
-    history.push('/trivia');
+    history.push('/game');
+  }
+
+  handleConfig = () => {
+    const { history } = this.props;
+    history.push('/configuracao');
   }
 
   render() {
@@ -66,14 +70,11 @@ class Login extends Component {
           </button>
           <button
             type="button"
-            className=""
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
             data-testid="btn-settings"
+            onClick={ this.handleConfig }
           >
             Configurações
           </button>
-          <Modal />
         </form>
       </div>
     );
