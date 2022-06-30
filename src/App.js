@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Trivia from './pages/Trivia';
+import Game from './pages/Game';
 
 export default function App() {
   return (
     <div>
       <Route exact path="/" component={ Login } />
-      <Route path="/trivia" component={ Trivia } />
+      <Route path="/game" component={ Game } />
     </div>
   );
 }
