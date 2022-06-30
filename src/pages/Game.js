@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import Header from '../components/Header';
 
-export default class Trivia extends Component {
+export default class Game extends Component {
   render() {
     return (
-      <div>Trivia</div>
+      <div>
+        <Header />
+        <h1>Trivia</h1>
+      </div>
     );
   }
 }
