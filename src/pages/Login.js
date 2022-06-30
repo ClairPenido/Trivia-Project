@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import fetchToken from '../services/token';
-import Modal from '../components/Modal';
 import { sendUserEmail, sendUserName } from '../redux/actions';
 
 class Login extends Component {
@@ -35,6 +34,11 @@ class Login extends Component {
     dispatch(sendUserEmail(userEmail));
     dispatch(sendUserName(userName));
     history.push('/game');
+  }
+
+  handleConfig = () => {
+    const { history } = this.props;
+    history.push('/configuracao');
   }
 
   render() {
@@ -71,14 +75,11 @@ class Login extends Component {
           </button>
           <button
             type="button"
-            className=""
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
             data-testid="btn-settings"
+            onClick={ this.handleConfig }
           >
             Configurações
           </button>
-          <Modal />
         </form>
       </div>
     );
