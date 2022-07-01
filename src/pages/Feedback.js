@@ -13,7 +13,7 @@ class Feedback extends Component {
 
   handlePlayAgain = () => {
     const { history } = this.props;
-    history.push('/game');
+    history.push('/');
   }
 
   render() {
