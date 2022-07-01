@@ -11,6 +11,11 @@ class Feedback extends Component {
     return assertions <= point ? 'Could be better...' : 'Well Done!';
   };
 
+  handlePlayAgain = () => {
+    const { history } = this.props;
+    history.push('/game');
+  }
+
   render() {
     const { score, assertions } = this.props;
     return (
@@ -23,12 +28,24 @@ class Feedback extends Component {
           <h3 data-testid="feedback-total-score">{ score }</h3>
           <h3 data-testid="feedback-total-question">{ assertions }</h3>
         </div>
+        <div>
+          <button
+            type="button"
+            data-testid="btn-play-again"
+            onClick={ this.handlePlayAgain }
+          >
+            Play Again
+          </button>
+        </div>
       </div>
     );
   }
 }
 
 Feedback.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }).isRequired,
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
 };
