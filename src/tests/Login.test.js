@@ -29,7 +29,7 @@ describe('Testa a página de login', () => {
     expect(playBtn).not.toBeDisabled();
   });
 
-  it('Ao pressionar o botão de jogar deve fazer uma requisição à API e redirecionar para página do jogo', async () => {
+  it('Deve fazer requisição a API e redirecionar a página do jogo', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
 
     jest.spyOn(global, 'fetch');
@@ -48,7 +48,7 @@ describe('Testa a página de login', () => {
     expect(pathname).toBe('/game');
   });
 
-  it('Ao pressionar o botão de configurações, redireciona pra rota settings', () => {
+  it('Deve direcionar para a página de configurações ao apertar o botão referente.', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     const buttonConfig = screen.getByTestId('btn-settings');
     userEvent.click(buttonConfig);
