@@ -1,0 +1,11 @@
+.select {
+  background-color: rgb(6, 240, 15);
+  box-shadow: 0 0 1px black;
+  color: white;
+}
+
+.wrong {
+  background-color: red;
+  box-shadow: 0 0 1px black;
+  color: white;
+}
