@@ -1,4 +1,4 @@
-import { SEND_USER_EMAIL, SEND_USER_NAME } from '../actions';
+import { SEND_USER_EMAIL, SEND_USER_NAME, SEND_USER_SCORE } from '../actions';
 
 const INITIAL_STATE = {
   name: '',
@@ -18,6 +18,11 @@ const player = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       name: action.payload,
+    };
+  case SEND_USER_SCORE:
+    return {
+      ...state,
+      score: state.score + 1,
     };
   default:
     return state;

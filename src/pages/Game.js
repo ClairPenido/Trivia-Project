@@ -3,6 +3,7 @@ import './Game.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { sendUserScore } from '../redux/actions';
 
 class Game extends Component {
   state = {
@@ -52,14 +53,18 @@ class Game extends Component {
       return 'wrong';
     } if (option === correct) {
       return 'select';
+    } if (option !== correct) {
+      return 'wrong';
     }
   }
 
   handleCheck = (option) => {
+    const { dispatch } = this.props;
     const { questions, currentQuestion, score } = this.state;
     const correct = questions[currentQuestion]?.correct_answer;
     this.setState({ selected: option });
     if (option === correct) {
+      dispatch(sendUserScore(score));
       this.setState({ score: score + 1 });
       this.setState({ error: false });
     }
@@ -118,6 +123,7 @@ Game.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect()(Game);
