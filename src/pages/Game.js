@@ -18,15 +18,15 @@ class Game extends Component {
   fetchQuestions = async () => {
     const { history } = this.props;
     const localToken = localStorage.getItem('token');
-    const INVALID_TOKEN = 3;
 
-    const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${localToken}`);
-    const data = await response.json();
-    this.setState({ questions: data.results, options: this.setOption(data.results) });
-
-    if (data.response_code === INVALID_TOKEN) {
+    try {
+      const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${localToken}`);
+      const data = await response.json();
+      this.setState({ questions: data.results, options: this.setOption(data.results) });
+    } catch (error) {
       localStorage.removeItem('token');
       history.push('/');
+      console.log(error);
     }
   }
 
