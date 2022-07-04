@@ -22,7 +22,7 @@ class Game extends Component {
 
     const response = await fetch(`https://opentdb.com/api.php?amount=5&token=${localToken}`);
     const data = await response.json();
-    this.setState({ questions: data.results });
+    this.setState({ questions: data.results, options: this.setOption(data.results) });
 
     if (data.response_code === INVALID_TOKEN) {
       localStorage.removeItem('token');
@@ -35,8 +35,8 @@ class Game extends Component {
     return options.sort(() => Math.random() - RANDOM_NUMBER);
   };
 
-  setOption = () => {
-    const { questions, currentQuestion } = this.state;
+  setOption = (questions) => {
+    const { currentQuestion } = this.state;
     const thisReturn = questions ? this.handleShuffle([
       questions[currentQuestion]?.correct_answer,
       ...questions[currentQuestion]?.incorrect_answers,
@@ -65,20 +65,40 @@ class Game extends Component {
     this.setState({ selected: option });
     if (option === correct) {
       dispatch(sendUserScore(score));
-      this.setState({ score: score + 1 });
       this.setState({ error: false });
     }
   }
 
+  handleQuit = () => {
+    const { history } = this.props;
+    localStorage.removeItem('token');
+    history.push('/');
+  }
+
+  handleNext = () => {
+    const { currentQuestion, selected, questions } = this.state;
+    const { history } = this.props;
+    const QUESTIONS_LIMIT = 5;
+
+    if (currentQuestion > QUESTIONS_LIMIT) {
+      history.push('/feedback');
+    } else if (selected) {
+      this.setState((prev) => ({ currentQuestion: prev.currentQuestion + 1 }), () => {
+        this.setState({ options: this.setOption(questions) });
+        this.setState({ selected: '' });
+      });
+    } else {
+      this.setState({ error: 'Selecione uma opção primeiro' });
+    }
+  };
+
   componentDidMount = async () => {
     await this.fetchQuestions();
-    this.setState({ options: this.setOption() });
   }
 
   render() {
-    const { questions, score, options, currentQuestion, selected, error } = this.state;
+    const { questions, options, currentQuestion, selected, error } = this.state;
     const correct = questions[currentQuestion]?.correct_answer;
-    console.log(correct);
     return (
       <div>
         <Header />
@@ -86,11 +106,6 @@ class Game extends Component {
         {questions.length > 0 && (
           <div>
             <p data-testid="question-category">{questions[currentQuestion].category}</p>
-            <p>
-              Score:
-              {' '}
-              {score}
-            </p>
             <h3 data-testid="question-text">{questions[currentQuestion].question}</h3>
             <div className="options" data-testid="answer-options">
               {error && <p>Por favor selecione uma resposta</p>}
@@ -112,6 +127,27 @@ class Game extends Component {
                 ))
               }
             </div>
+            <div className="controls" />
+            <button
+              type="button"
+              onClick={ this.handleQuit }
+            >
+              Quit
+
+            </button>
+            {/* visibility: selected === '' ? 'hidden' : 'visible' */}
+            {selected === '' ? (
+              null
+            )
+              : (
+                <button
+                  type="button"
+                  data-testid="btn-next"
+                  onClick={ this.handleNext }
+                >
+                  Next
+                </button>
+              )}
           </div>
         )}
       </div>
