@@ -78,11 +78,14 @@ class Game extends Component {
   handleNext = () => {
     const { currentQuestion, selected, questions } = this.state;
     const { history } = this.props;
-    const QUESTIONS_LIMIT = 5;
+    const QUESTIONS_LIMIT = 3;
 
+    console.log(currentQuestion);
     if (currentQuestion > QUESTIONS_LIMIT) {
       history.push('/feedback');
-    } else if (selected) {
+    }
+
+    if (selected) {
       this.setState((prev) => ({ currentQuestion: prev.currentQuestion + 1 }), () => {
         this.setState({ options: this.setOption(questions) });
         this.setState({ selected: '' });
