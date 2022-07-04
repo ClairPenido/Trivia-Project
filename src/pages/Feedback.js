@@ -54,8 +54,6 @@ class Feedback extends Component {
   }
 }
 
-export default connect()(Feedback);
-
 Feedback.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
