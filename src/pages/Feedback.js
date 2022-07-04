@@ -5,10 +5,9 @@ import Header from '../components/Header';
 
 class Feedback extends Component {
   message = () => {
-    const { assertions } = this.props;
+    const { score } = this.props;
     const point = 3;
-    console.log(assertions);
-    return assertions <= point ? 'Could be better...' : 'Well Done!';
+    return score < point ? 'Could be better...' : 'Well Done!';
   };
 
   handlePlayAgain = () => {
