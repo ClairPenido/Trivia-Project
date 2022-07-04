@@ -6,7 +6,6 @@ import getAvatar from '../services/gravatar';
 class Header extends Component {
   render() {
     const { email, name, score } = this.props;
-
     return (
       <header>
         <div>

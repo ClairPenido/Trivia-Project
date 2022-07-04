@@ -1,10 +1,10 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import Login from './pages/Login';
-import Game from './pages/Game';
 import Configuracao from './pages/Configuracao';
 import Feedback from './pages/Feedback';
 import Ranking from './pages/Ranking';
+import Game from './pages/Game';
 
 export default function App() {
   return (
