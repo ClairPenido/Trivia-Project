@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import Header from '../components/Header';
 
 class Feedback extends Component {
+  componentDidMount() {
+    this.saveRankingPlayers();
+  }
+
   message = () => {
     const { score } = this.props;
     const point = 3;
@@ -18,6 +22,15 @@ class Feedback extends Component {
   handleRanking = () => {
     const { history } = this.props;
     history.push('/ranking');
+  }
+
+  saveRankingPlayers = () => {
+    const { players } = this.props;
+    console.log(players);
+    const ls = localStorage.getItem('ranking')
+      ? JSON.parse(localStorage.getItem('ranking')) : [];
+    ls.push(players);
+    localStorage.setItem('ranking', JSON.stringify(ls));
   }
 
   render() {
@@ -59,9 +72,11 @@ Feedback.propTypes = {
   }).isRequired,
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  players: PropTypes.objectOf.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  players: state.player,
   assertions: state.player.assertions,
   score: state.player.score });
 
