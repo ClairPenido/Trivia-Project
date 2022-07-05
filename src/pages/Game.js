@@ -102,6 +102,7 @@ class Game extends Component {
   render() {
     const { questions, options, currentQuestion, selected, error } = this.state;
     const correct = questions[currentQuestion]?.correct_answer;
+    console.log(correct);
     return (
       <div>
         <Header />

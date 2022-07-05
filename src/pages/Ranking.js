@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import getAvatar from '../services/gravatar';
+import { clearState } from '../redux/actions';
 
 class Ranking extends Component {
   constructor() {
@@ -19,7 +20,8 @@ class Ranking extends Component {
   }
 
   handleInicio = () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    dispatch(clearState);
     history.push('/');
   }
 
@@ -37,11 +39,12 @@ class Ranking extends Component {
             </tr>
           </thead>
           <tbody>
+            {console.log(arrayOrdenado)}
             {arrayOrdenado.map((p, index) => (
-              <tr key={ p.email }>
+              <tr key={ p.gravatarEmail }>
                 <td>
                   <img
-                    src={ getAvatar(p.email) }
+                    src={ getAvatar(p.gravatarEmail) }
                     data-testid="profile-picture"
                     alt={ p.name }
                   />
@@ -71,6 +74,7 @@ Ranking.propTypes = {
   history: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }).isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 export default connect()(Ranking);

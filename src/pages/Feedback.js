@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../components/Header';
+import { clearState } from '../redux/actions';
 
 class Feedback extends Component {
   componentDidMount() {
@@ -15,12 +16,14 @@ class Feedback extends Component {
   };
 
   handlePlayAgain = () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    dispatch(clearState);
     history.push('/');
   }
 
   handleRanking = () => {
     const { history } = this.props;
+    // dispatch(clearState);
     history.push('/ranking');
   }
 
@@ -73,6 +76,7 @@ Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
   players: PropTypes.objectOf.isRequired,
+  dispatch: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
